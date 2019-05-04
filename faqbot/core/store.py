@@ -2,34 +2,33 @@
 templates and dynamic configuration details.
 """
 
-from faqbot.legacy.faq import COMMANDS
-
-import pickle
+from pymongo import MongoClient
+from faqbot.config import *
 import copy
-import os
 
-STORE_DIRECTORY = "store"
-
-
-def store_path(name):
-    """Internal function."""
-
-    return os.path.join(STORE_DIRECTORY, name + ".p")
-
+client = MongoClient(MONGO_URL)
+db = client.get_database()
+collection = db.settings
 
 def save_config(store, name):
     """Give it a dictionary of your config,
     and a name of your config and it'll save it ;)
     """
-    pickle.dump(store, open(store_path(name), "w"))
-
+    print("store", store, "name", name, "set")
+    collection.replace_one({
+        "name": name
+    }, {
+        "name": name,
+        "data": store
+    }, upsert=True)
 
 def load_config(name):
     """Load back the stored configs.
     Again, pass in the name of your config.
     """
-
-    return pickle.load(open(store_path(name)))
+    return collection.find_one({
+        "name": name
+    })["data"]
 
 
 def gen_defaults(defaults, name):
@@ -37,8 +36,7 @@ def gen_defaults(defaults, name):
     config store already exists, if it doesn't
     it'll dump the defaults.
     """
-
-    if not os.path.exists(store_path(name)):
+    if not collection.find_one({"name": name}):
         store = copy.deepcopy(defaults)
         save_config(store, name)
     else:

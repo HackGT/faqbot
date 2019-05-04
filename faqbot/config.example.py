@@ -23,6 +23,9 @@ SECRET = os.environ.get("SECRET", "CHANGE THIS")
 # Admin password.
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "P9Jt_B=uMvgu6#EG")
 
+# MongoDB Storage URL
+MONGO_URL = os.environ.get("MONGO_URL", "mongodb://localhost/faqbot")
+
 """
 ===== MAIL SPECIFIC =====
 """
