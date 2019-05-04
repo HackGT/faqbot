@@ -1,2 +1,6 @@
 wants:
     mongo: true
+secrets:
+    - SECRET
+    - MAIL_PASSWORD
+    - ADMIN_PASSWORD
