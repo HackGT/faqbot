@@ -14,7 +14,6 @@ def save_config(store, name):
     """Give it a dictionary of your config,
     and a name of your config and it'll save it ;)
     """
-    print("store", store, "name", name, "set")
     collection.replace_one({
         "name": name
     }, {

@@ -12,7 +12,7 @@ import os
 APP_NAME = os.environ.get("APP_NAME", "faqbot")
 
 # App network port.
-PORT = os.environ.get("PORT", 8114)
+PORT = int(os.environ.get("PORT", 8114))
 
 # Is the app running in debug mode?
 DEBUG = bool(os.environ.get("DEBUG", False))
