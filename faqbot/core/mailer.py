@@ -47,9 +47,14 @@ def init_finder(re):
 
     recipients = [x.replace('=', '') for x in email_finder.get_emails(re)]
 
+    # Add hello@hack.gt always
+    recipients.append('hello@hack.gt')
+
     # Remove dupes
     recipients = list(set(recipients))
 
+    # Remove faqbot now that list is de-duped
+    recipients.remove('faqbot@hack.gt')
     return recipients
 
 def reply_email(reply_object, body, attach=None, attach_fn="file.pdf", reply_one=None):
