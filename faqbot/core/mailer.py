@@ -53,8 +53,9 @@ def init_finder(re):
     # Remove dupes
     recipients = list(set(recipients))
 
-    # Remove faqbot now that list is de-duped
-    recipients.remove('faqbot@hack.gt')
+    # Remove botgt now that list is de-duped
+    if 'botgt@hack.gt' in recipients:
+        recipients.remove('botgt@hack.gt')
     return recipients
 
 def reply_email(reply_object, body, attach=None, attach_fn="file.pdf", reply_one=None):

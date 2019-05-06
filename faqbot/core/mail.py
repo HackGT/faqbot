@@ -20,6 +20,7 @@ from email.utils import getaddresses, parseaddr
 from email.mime.text import MIMEText
 import smtplib
 from flanker import mime
+import sys
 
 import imaplib2, time
 from threading import *
@@ -62,6 +63,8 @@ class Idler(object):
                 if self.needsync:
                     self.event.clear()
                     self.dosync()
+            except KeyboardInterrupt:
+                sys.exit(0)
             except Exception as _:
                 continue # TO-DO Better error handling.
 
