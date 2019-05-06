@@ -39,7 +39,7 @@ MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD", "CHANGE_ME")
 # SMTP server details.
 SEND_MAIL_USER = MAIL_USER
 SEND_MAIL_PASSWORD = MAIL_PASSWORD
-MAIL_FROM = "hello@hack.gt"
+MAIL_FROM = "HackGT Team <hello@hack.gt>"
 
 # This footer is appended at the end of _every_ email
 # sent by this bot. Just to make sure people can reach

@@ -141,6 +141,8 @@ class Idler(object):
                 'raw_email': raw_email,
                 'msg_id': email_message["Message-ID"]
             }
+            if "In-Reply-To" in email_message:
+                reply_object["reply_to"] = email_message["In-Reply-To"]
 
             if start_trigger(body, TRIGGERS) and "From" in email_message and is_whitelisted(raw_email):
                 print "Request from {} for subject {}.".format(email_message["From"], email_message["Subject"])

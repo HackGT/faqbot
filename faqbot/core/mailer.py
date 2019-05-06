@@ -55,6 +55,8 @@ def init_finder(re):
 def reply_email(reply_object, body, attach=None, attach_fn="file.pdf", reply_one=None):
     sujet = reply_object['subject']
     reply_sujet = "Re: " + sujet if not sujet.startswith('Re:') else sujet
+    # Strip forward since we forward to have bot respond
+    reply_sujet = reply_sujet.replace('Fwd:', '')
     recipients = []
     for r in reply_object['all_recipients']:
         recipients.append(r[1])
@@ -75,8 +77,8 @@ def reply_email(reply_object, body, attach=None, attach_fn="file.pdf", reply_one
 
     msg['Subject'] = reply_sujet
     msg["Message-ID"] = make_msgid()
-    msg["In-Reply-To"] = reply_object['msg_id']
-    msg["References"] = reply_object['msg_id']
+    msg["In-Reply-To"] = reply_object['reply_to'] if reply_object['reply_to'] else reply_object['msg_id']
+    msg["References"] = reply_object['reply_to'] if reply_object['reply_to'] else reply_object['msg_id']
 
     if reply_one:
         msg["To"] = reply_one
