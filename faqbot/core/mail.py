@@ -144,10 +144,13 @@ class Idler(object):
             if "In-Reply-To" in email_message:
                 reply_object["reply_to"] = email_message["In-Reply-To"]
 
-            if start_trigger(body, TRIGGERS) and "From" in email_message and is_whitelisted(raw_email):
+            trigger = start_trigger(body, TRIGGERS)
+            if trigger and "From" in email_message and is_whitelisted(raw_email):
                 print "Request from {} for subject {}.".format(email_message["From"], email_message["Subject"])
-                
+                # Extra parsing since our trigger word can include spaces due to gmail autocomplete
+                body = body.replace(trigger, '')
                 argv = [x.strip() for x in body.split()]
+                argv = [trigger] + argv
                 callbacks.triggered_email(body, argv, reply_object)
             else:
                 callbacks.raw_email(flanker_msg, raw_email, reply_object)

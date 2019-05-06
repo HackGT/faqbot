@@ -4,7 +4,10 @@ from faqbot.core.store import load_config, save_config
 
 
 def start_trigger(s, triggers):
-    return any([s.startswith(t) for t in triggers])
+    for t in triggers:
+        if s.startswith(t):
+            return t
+    return None
 
 
 MENU = None
