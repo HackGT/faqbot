@@ -46,16 +46,6 @@ def init_finder(re):
     re = re.replace('[', '<').replace(']', '>')
 
     recipients = [x.replace('=', '') for x in email_finder.get_emails(re)]
-
-    # Add hello@hack.gt always
-    recipients.append('hello@hack.gt')
-
-    # Remove dupes
-    recipients = list(set(recipients))
-
-    # Remove botgt now that list is de-duped
-    if 'botgt@hack.gt' in recipients:
-        recipients.remove('botgt@hack.gt')
     return recipients
 
 def reply_email(reply_object, body, attach=None, attach_fn="file.pdf", reply_one=None):
@@ -70,7 +60,12 @@ def reply_email(reply_object, body, attach=None, attach_fn="file.pdf", reply_one
     re = reply_object['raw_email']
     recipients += init_finder(re)
 
-    print recipients
+    # Remove dupes
+    recipients = list(set(recipients))
+
+    # Remove botgt now that list is de-duped
+    recipients = [r for r in recipients if (not "hack.gt" in r) and (not "hackgt.com" in r)]
+    recipients.append("hello@hack.gt")
 
     if attach is None:
         msg = MIMEText(body + FOOTER, 'html')
