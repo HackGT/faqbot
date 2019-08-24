@@ -48,4 +48,4 @@ FOOTER = """
 <br><br> <i>~~ This was an automated message, please <a href="mailto:hello@hack.gt">email us</a> again if this didn't help! ~~</i>
 """
 
-TRIGGERS = ["@botgt@hack.gt <botgt@hack.gt>", "@faqbot <botgt@hack.gt>", "@faqbot <botgt@hackgt.com>", "@faqbot", "@fb"]
+TRIGGERS = ["@botgt@hack.gt <botgt@hack.gt>", "@faqbot <botgt@hack.gt>", "@faqbot <botgt@hackgt.com>", "@faqbot", "@fb", "@botgt"]
